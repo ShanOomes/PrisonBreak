@@ -36,6 +36,9 @@ public class Inventory : MonoBehaviour
         //remove the item
         items.Remove(item);
         //remove the weight of total
-
+        foreach (AccesItem value in items)
+        {
+            currentWeight -= value.Weight;
+        }
     }
 }
