@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Item
+public abstract class Item
 {
     private string name;
-    private int weight;
+    private float weight;
 
     //Properties
     public string Name { get { return this.name; } set { this.name  = value; } }
-    public int Weight { get { return this.weight; } set { this.weight = value; } }
+    public float Weight { get { return this.weight; } set { this.weight = value; } }
 
     //Standard constructor
     public Item()
@@ -19,14 +19,14 @@ abstract class Item
     }
 
     //Custom constructor
-    public Item(string name, int weight)
+    public Item(string name, float weight)
     {
         this.name = name;
         this.weight = weight;
     }
 }
 
-class AccesItem : Item
+public class AccesItem : Item
 {
     private int id;
 
@@ -41,14 +41,14 @@ class AccesItem : Item
     }
 
     //Custom constructor
-    public AccesItem(int id, string name, int weight)
+    public AccesItem(int id, string name, float weight)
         : base(name, weight)
     {
         this.id = id;
     }
 }
 
-class BonusItem : Item
+public class BonusItem : Item
 {
     private int points;
 
@@ -67,28 +67,5 @@ class BonusItem : Item
         : base(name, weight)
     {
         this.points = points;
-    }
-}
-
-public class Items : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        AccesItem doorKey = new AccesItem(3, "VaultKey", 10);
-        print(doorKey.ID);
-        print(doorKey.Name);
-        print(doorKey.Weight);
-
-        //AccesItem key = new AccesItem();
-        //print(key.ID);
-        //print(key.Name);
-        //print(key.Weight);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
