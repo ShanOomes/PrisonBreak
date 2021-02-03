@@ -5,38 +5,76 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     private float currentWeight = 0;
-    private List<AccesItem> items = new List<AccesItem>();
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float maximumWeight = 100;
+    private List<Item> items = new List<Item>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
+    public bool AddItem(Item item)
     {
-        //print("Current weight: " + currentWeight);
-    }
-
-    public void AddItem(AccesItem item)
-    {
-        //add the item
-        items.Add(item);
-        //add the weight to total
-        foreach (AccesItem value in items)
+        if (currentWeight + item.Weight <= maximumWeight)
         {
-            currentWeight += value.Weight;
+            //add the item
+            items.Add(item);
+            //add the weight to total
+            currentWeight += item.Weight;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void RemoveItem(AccesItem item)
+    public bool RemoveItem(Item item)
     {
         //remove the item
-        items.Remove(item);
+        bool succes = items.Remove(item);
+
         //remove the weight of total
-        foreach (AccesItem value in items)
+        if (succes) { currentWeight -= item.Weight; }
+
+        return succes;
+    }
+
+    public bool HasItem(Item item)
+    {
+        return items.Contains(item);
+    }
+
+    public bool CanOpenDoor(int id)
+    {
+        bool result = false;
+
+        foreach (Item item in items)
         {
-            currentWeight -= value.Weight;
+            if(item is AccesItem)
+            {
+                if(((AccesItem)item).OpensDoor(id))
+                {
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    public int Count()
+    {
+        return items.Count;
+    }
+
+    public float GetCurrentWeight()
+    {
+        return currentWeight;
+    }
+
+    public void DebugInventory()
+    {
+        print("Inventory has " + Count() + " items");
+        print("Total weight " + GetCurrentWeight() + " Kg");
+
+        foreach (Item item in items)
+        {
+            print(item.Name + "---------" + item.Weight);
         }
     }
 }

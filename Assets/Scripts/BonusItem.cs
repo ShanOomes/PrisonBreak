@@ -17,7 +17,7 @@ public class BonusItem : Item
     }
 
     //Custom constructor
-    public BonusItem(int points, string name, int weight)
+    public BonusItem(int points, string name, float weight)
         : base(name, weight)
     {
         this.points = points;
