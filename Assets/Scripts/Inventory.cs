@@ -9,15 +9,13 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AccesItem key = new AccesItem(3, "VaultKey", 10f);
-        print(key.Weight);
-        AddItem(key);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("Current weight: " + currentWeight);
+        //print("Current weight: " + currentWeight);
     }
 
     public void AddItem(AccesItem item)

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class AccesItem : Item
 {
-    private int id;
+    private int doorId;
 
     //Propertie
-    public int ID { get { return this.id; } set { this.id = value; } }
+    public int DoorID { get { return this.doorId; } set { this.doorId = value; } }
 
     //Standard constructor
     public AccesItem()
         : base()
     {
-        this.id = 0;
+        this.doorId = 0;
     }
 
     //Custom constructor
-    public AccesItem(int id, string name, float weight)
+    public AccesItem(int doorId, string name, float weight)
         : base(name, weight)
     {
-        this.id = id;
+        this.doorId = doorId;
     }
 }
