@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private Inventory inventory;
-    public float initialMaxWeight;
+    public float initialMaxWeight=100;
 
     // Start is called before the first frame update
     void Start()
@@ -13,9 +13,17 @@ public class PlayerManager : MonoBehaviour
         inventory = new Inventory(initialMaxWeight);
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool AddItem(Item i)
     {
-        
+        return inventory.AddItem(i);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Interactable"))
+        {
+            IInteractable i = hit.gameObject.GetComponent<IInteractable>();
+            i.Action(this);
+        }
     }
 }
