@@ -44,6 +44,43 @@ public class Test : MonoBehaviour
         {
             print("Door 1 can't be opened.");
         }
+
+        if (inventory.HasItem(i))
+        {
+            print("Key of doom is in inventory");
+        }
+        else
+        {
+            print("Key is not in inventory");
+        }
+
+        if (inventory.RemoveItem(i))
+        {
+            print("Key was removed from inventory");
+        }
+        else
+        {
+            print("key was not removed");
+        }
+
+        if (inventory.CanOpenDoor(1))
+        {
+            print("Door 1 can be opened.");
+        }
+        else
+        {
+            print("Door 1 can't be opened.");
+        }
+
+        if (inventory.HasItem(i))
+        {
+            print("Key of doom is in inventory");
+        }
+        else
+        {
+            print("Key is not in inventory");
+        }
+
     }
 
     private void DebugTest(Item i)
