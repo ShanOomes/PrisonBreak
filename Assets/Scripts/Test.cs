@@ -10,7 +10,8 @@ public class Test : MonoBehaviour
     void Start()
     {
         //CreateKey();
-        TestInventoryFuncionality();
+        //TestInventoryFuncionality();
+        TestPuzzleItem();
     }
 
     private void CreateKey()
@@ -22,6 +23,29 @@ public class Test : MonoBehaviour
         DebugItem(b);
     }
 
+    private void TestPuzzleItem()
+    {
+        Item p = new PuzzleItem("Is blue blue?", "blue", "Color riddle", 5f);
+        string answer = "blue";
+
+        if(p is PuzzleItem)
+        {
+            //cast
+            PuzzleItem i = (PuzzleItem)p;
+            DebugTest(i);
+            print(i.IsSolved());
+            if (i.CheckAnswer(answer))
+            {
+                print("Solved riddle!");
+                print(i.IsSolved());
+            }
+            else
+            {
+                print("riddle wasn't solved");
+            }
+        }
+
+    }
     private void TestInventoryFuncionality()
     {
         // doorId - name - weight
@@ -83,6 +107,7 @@ public class Test : MonoBehaviour
 
     }
 
+    //check if item was correctly add to inventory
     private void DebugTest(Item i)
     {
         if (inventory.AddItem(i))
@@ -94,6 +119,8 @@ public class Test : MonoBehaviour
             print("Failed to add: " + i.Name + " to the inventory");
         }
     }
+
+    //Debugs info of the item
     public void DebugItem(Item i)
     {
         string itemInfo = "The item: " + i.Name + " weighs " + i.Weight + "Kg";
