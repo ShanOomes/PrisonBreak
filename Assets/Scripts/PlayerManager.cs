@@ -18,6 +18,11 @@ public class PlayerManager : MonoBehaviour
         return inventory.AddItem(i);
     }
 
+    public bool AccessInventory(int i)
+    {
+        return inventory.CanOpenDoor(i);
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.CompareTag("Interactable"))

@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
-    // Start is called before the first frame update
+    public int doorIndex;
+
+    private Rigidbody rb;
     void Start()
     {
-        
+        gameObject.tag = "Interactable";
+        rb = gameObject.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Action(PlayerManager player)
     {
-        
+        if (player.AccessInventory(doorIndex))
+        {
+            rb.isKinematic = false;
+        }
     }
 }
