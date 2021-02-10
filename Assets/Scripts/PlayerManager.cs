@@ -7,7 +7,6 @@ public class PlayerManager : MonoBehaviour
 {
     private Inventory inventory;
     public float initialMaxWeight=100;
-
     // Start is called before the first frame update
     void Start()
     {
