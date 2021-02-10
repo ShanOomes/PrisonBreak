@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,24 @@ public class PlayerManager : MonoBehaviour
                     i.Action(this);
                 }
             }
+        }
+
+        //Temporary code to test
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            DropItem("anvil");
+        }
+    }
+
+    public void DropItem(string name)
+    {
+        Item i = inventory.GetItemWithName(name);
+        if(i != null)
+        {
+            //remove it from inventory
+            inventory.RemoveItem(i);
+            //sets item back into the world, respawns item
+            GameManager.Instance.DropItem(name, transform.position + transform.forward);
         }
     }
 }

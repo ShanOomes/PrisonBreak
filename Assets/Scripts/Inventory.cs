@@ -47,6 +47,18 @@ public class Inventory
         return succes;
     }
 
+    public Item GetItemWithName(string name)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if(items[i].Name == name)
+            {
+                return items[i];
+            }
+        }
+        return null;
+    }
+
     public bool HasItem(Item item)
     {
         return items.Contains(item);
