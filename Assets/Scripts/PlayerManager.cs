@@ -23,12 +23,20 @@ public class PlayerManager : MonoBehaviour
         return inventory.CanOpenDoor(i);
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void Update()
     {
-        if (hit.gameObject.CompareTag("Interactable"))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            IInteractable i = hit.gameObject.GetComponent<IInteractable>();
-            i.Action(this);
+            RaycastHit hit;
+
+            if(Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 2))
+            {
+                IInteractable i = hit.collider.gameObject.GetComponent<IInteractable>();
+                if (i != null)
+                {
+                    i.Action(this);
+                }
+            }
         }
     }
 }
