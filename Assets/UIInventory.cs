@@ -10,14 +10,17 @@ public class UIInventory : MonoBehaviour
 
     private int numSlots = 9;
 
+    public PlayerManager player;
+
     // Start is called before the first frame update
     private void Awake()
     {
         for (int i = 0; i < numSlots; i++)
         {
-            GameObject instance = Instantiate(slotPrefab);
-            instance.transform.SetParent(slotPanel);
-            uIItems.Add(instance.GetComponentInChildren<UIItem>());
+            GameObject instance = Instantiate(slotPrefab, slotPanel);
+            UIItem uIItem = instance.GetComponentInChildren<UIItem>();
+            uIItems.Add(uIItem);
+            uIItem.manager = this;
         }
     }
 
@@ -34,5 +37,9 @@ public class UIInventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
         UpdateSlot(uIItems.FindIndex(i => i.item == item), null);
+    }
+    public void DropItem(string name)
+    {
+        player.DropItem(name);
     }
 }

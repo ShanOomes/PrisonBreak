@@ -44,14 +44,6 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-
-        //Temporary code to test
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DropItem("anvil");
-            DropItem("Herres key");
-            DropItem("Dik geld van je moeder");
-        }
     }
 
     public void DropItem(string name)

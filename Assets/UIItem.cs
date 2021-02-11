@@ -7,7 +7,7 @@ public class UIItem : MonoBehaviour
 {
     public Item item;
     private Text itemText;
-
+    public UIInventory manager;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -31,6 +31,6 @@ public class UIItem : MonoBehaviour
 
     public void BtnClick()
     {
-        print("Selected item: " + item.Name);
+        manager.DropItem(item.Name);
     }
 }
