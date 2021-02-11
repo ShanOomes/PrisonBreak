@@ -966,6 +966,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 576034597419956280, guid: ad937847264ed5a44a3227d1a0b5f415,
     type: 3}
   slotPanel: {fileID: 2143332265}
+  player: {fileID: 711477697}
 --- !u!1 &1060086968
 GameObject:
   m_ObjectHideFlags: 0
