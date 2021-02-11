@@ -20,6 +20,17 @@ public class Inventory
         this.maximumWeight = maximumWeight;
     }
 
+    public bool CheckWeight(Item item)
+    {
+        if(currentWeight + item.Weight <= maximumWeight)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool AddItem(Item item)
     {
         if (currentWeight + item.Weight <= maximumWeight)

@@ -7,6 +7,8 @@ public class PlayerManager : MonoBehaviour
 {
     private Inventory inventory;
     public float initialMaxWeight=100;
+    public UIInventory inventoryUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,10 @@ public class PlayerManager : MonoBehaviour
 
     public bool AddItem(Item i)
     {
+        if (inventory.CheckWeight(i))
+        {
+            inventoryUI.AddNewItem(i);
+        }
         return inventory.AddItem(i);
     }
 
@@ -43,6 +49,8 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             DropItem("anvil");
+            DropItem("Herres key");
+            DropItem("Dik geld van je moeder");
         }
     }
 
@@ -51,8 +59,10 @@ public class PlayerManager : MonoBehaviour
         Item i = inventory.GetItemWithName(name);
         if(i != null)
         {
+            inventoryUI.RemoveItem(i);
             //remove it from inventory
             inventory.RemoveItem(i);
+
             //sets item back into the world, respawns item
             GameManager.Instance.DropItem(name, transform.position + transform.forward);
         }

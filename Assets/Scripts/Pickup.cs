@@ -17,6 +17,7 @@ public abstract class Pickup : MonoBehaviour, IInteractable
     {
         if (player.AddItem(CreateItem()))
         {
+            //Remove obj from scene floor
             Remove();
         }
     }
