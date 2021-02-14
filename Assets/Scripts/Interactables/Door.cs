@@ -6,28 +6,13 @@ public class Door : MonoBehaviour, IInteractable
 {
     public int doorIndex;
 
-    private Rigidbody rb;
-
     public bool open = false;
+
     void Start()
     {
         gameObject.tag = "Interactable";
-        rb = gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        GameManager.Instance.RegisterDoors(this);
     }
-
-    void Update()
-    {
-        if (open)
-        {
-            rb.isKinematic = false;
-        }
-        else
-        {
-            rb.isKinematic = true;
-        }
-    }
-
     public void Open()
     {
         open = !open;
