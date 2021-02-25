@@ -8,7 +8,7 @@ public class UIInventory : MonoBehaviour
     public GameObject slotPrefab;
     public Transform slotPanel;
 
-    private int numSlots = 9;
+    private int numSlots = 20;
 
     public PlayerManager player;
 
