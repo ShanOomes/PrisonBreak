@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     public UIInventory inventoryUI;
     public RectTransform HUD;
     private bool toggle;
+    public Text currentWeight;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         {
             inventoryUI.AddNewItem(i);
         }
+        currentWeight.text = inventory.GetCurrentWeight().ToString();
         return inventory.AddItem(i);
     }
 
@@ -80,9 +83,9 @@ public class PlayerManager : MonoBehaviour
             inventoryUI.RemoveItem(i);
             //remove it from inventory
             inventory.RemoveItem(i);
-
             //sets item back into the world, respawns item
             GameManager.Instance.DropItem(name, transform.position + transform.forward);
+            currentWeight.text = inventory.GetCurrentWeight().ToString();
         }
     }
 }
