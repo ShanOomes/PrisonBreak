@@ -45,7 +45,7 @@ public class APIConnection : MonoBehaviour
             else
             {
                 JSONNode JsonObject = JSON.Parse(www.downloadHandler.text);
-                print("Dog url: " + JsonObject["message"].Value);
+                //print("Dog url: " + JsonObject["message"].Value);
                 //cube.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
                 StartCoroutine(GetTexture(JsonObject["message"].Value));
             }

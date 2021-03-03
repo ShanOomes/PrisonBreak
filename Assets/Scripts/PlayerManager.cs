@@ -2,12 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
     private Inventory inventory;
     public float initialMaxWeight=100;
     public UIInventory inventoryUI;
+    public RectTransform HUD;
+    private bool toggle;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,28 @@ public class PlayerManager : MonoBehaviour
                 {
                     i.Action(this);
                 }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            toggle = !toggle;
+            FirstPersonController fps = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+            if (toggle)
+            {
+                //slide hud up and down
+                HUD.DOAnchorPos(Vector2.zero, 0.25f);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                fps.enabled = false;
+            }
+            else
+            {
+                //slide hud up and down
+                HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                fps.enabled = true;
             }
         }
     }
