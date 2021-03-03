@@ -4,9 +4,29 @@ using UnityEngine;
 using UnityEngine.Networking;
 using SimpleJSON;
 
+public static class IListExtensions
+{
+    /// <summary>
+    /// Shuffles the element order of the specified list.
+    /// </summary>
+    public static void Shuffle<T>(this IList<T> ts)
+    {
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
+        }
+    }
+}
 public class APIConnection : MonoBehaviour
 {
     public GameObject cube;
+    private PuzzleItem puzzle;
+    private List<string> answers = new List<string>();
     IEnumerator GetRequest(string url)
     {
         using(UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -26,7 +46,24 @@ public class APIConnection : MonoBehaviour
                     //Debug.Log(":\nReceived: " + webRequest.downloadHandler.text);
                     JSONNode JsonObject = JSON.Parse(webRequest.downloadHandler.text);
 
-                    print("Checkout this funny joke: " + JsonObject["value"]["joke"].Value);
+                    puzzle = new PuzzleItem(JsonObject["results"][0]["question"].Value, JsonObject["results"][0]["correct_answer"].Value, "Game trivia", 1f);
+
+                    //correct answer
+                    puzzle.AddAnswer(JsonObject["results"][0]["correct_answer"].Value);
+
+                    //incorrect answer
+                    for (int i = 0; i < JsonObject["results"][0]["incorrect_answers"].Count; i++)
+                    {
+                        puzzle.AddAnswer(JsonObject["results"][0]["incorrect_answers"][i].Value);
+                    }
+
+                    //print answers
+                    //print(puzzle.GetCount());
+                    //print("Question: " + puzzle.GetQuestion());
+                    //print("correct answer: " + puzzle.GetCorrectAnswer());
+                    puzzle.GetList().Shuffle();
+                    print(puzzle.GetQuestion());
+                    puzzle.DebugAnswersList();
                     break;
             }
         }
@@ -72,7 +109,8 @@ public class APIConnection : MonoBehaviour
     void Start()
     {
         //StartCoroutine(GetRequest("http://api.icndb.com/jokes/random"));
-        StartCoroutine(GetRandomDog("https://dog.ceo/api/breeds/image/random"));
+        //StartCoroutine(GetRandomDog("https://dog.ceo/api/breeds/image/random"));
         //StartCoroutine(GetRandomDog("https://api.thecatapi.com/v1/images/search"));
+        StartCoroutine(GetRequest("https://opentdb.com/api.php?amount=1&category=15&difficulty=medium&type=multiple"));
     }
 }

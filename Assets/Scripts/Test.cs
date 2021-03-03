@@ -11,7 +11,8 @@ public class Test : MonoBehaviour
     {
         inventory = new Inventory(150);
         //CreateKey();
-        TestInventoryFuncionality();
+        //TestInventoryFuncionality();
+        DebugPuzzle();
     }
 
     private void CreateKey()
@@ -23,6 +24,11 @@ public class Test : MonoBehaviour
         DebugItem(b);
     }
 
+    private void DebugPuzzle()
+    {
+        Item c = new PuzzleItem("Riddle", "Answer of the riddle", "Name of the riddle", 10f);
+        DebugItem(c);
+    }
     private void TestInventoryFuncionality()
     {
         // doorId - name - weight
@@ -107,6 +113,10 @@ public class Test : MonoBehaviour
         {
             BonusItem bi = (BonusItem)i;
             extraInfo = " and give you: " + bi.Points;
+        }else if(i is PuzzleItem)
+        {
+            PuzzleItem pi = (PuzzleItem)i;
+            extraInfo = " and riddle: " + pi.Question + " and answer: " + pi.Answer;
         }
 
         print(itemInfo + extraInfo);
