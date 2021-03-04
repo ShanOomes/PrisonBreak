@@ -9,6 +9,7 @@ public class UIItem : MonoBehaviour
     public Item item;
     private Text itemText;
     public UIInventory manager;
+    public Image obj;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,15 +24,24 @@ public class UIItem : MonoBehaviour
         {
             itemText.color = Color.white;
             itemText.text = item.Name;
+            obj.enabled = true;
         }
         else
         {
             itemText.color = Color.clear;
+            obj.enabled = false;
         }
     }
 
-    public void BtnClick()
+    public void DropItem()
     {
-        manager.DropItem(item.Name);
+        if(item != null)
+        {
+            manager.DropItem(item.Name);
+        }
+        else
+        {
+            Debug.LogError("DropItem is null");
+        }
     }
 }

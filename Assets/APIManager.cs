@@ -22,10 +22,25 @@ public static class IListExtensions
         }
     }
 }
-public class APIConnection : MonoBehaviour
+public class APIManager : MonoBehaviour
 {
-    public GameObject cube;
+    private GameObject cube;
     private PuzzleItem puzzle;
+    public static APIManager Instance;
+    private bool completed = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     IEnumerator GetRequest(string url)
     {
         using(UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -61,9 +76,10 @@ public class APIConnection : MonoBehaviour
                     //print("Question: " + puzzle.GetQuestion());
                     //print("correct answer: " + puzzle.GetCorrectAnswer());
                     puzzle.GetList().Shuffle();
-                    print(puzzle.GetQuestion());
-                    puzzle.DebugAnswersList();
-                    print("Correct answer: " + puzzle.GetCorrectAnswer());
+                    //print(puzzle.GetQuestion());
+                    //puzzle.DebugAnswersList();
+                    //print("Correct answer: " + puzzle.GetCorrectAnswer());
+                    completed = true;
                     break;
             }
         }
@@ -111,6 +127,16 @@ public class APIConnection : MonoBehaviour
         //StartCoroutine(GetRequest("http://api.icndb.com/jokes/random"));
         //StartCoroutine(GetRandomDog("https://dog.ceo/api/breeds/image/random"));
         //StartCoroutine(GetRandomDog("https://api.thecatapi.com/v1/images/search"));
+        
+    }
+
+    public PuzzleItem GetTrivia()
+    {
         StartCoroutine(GetRequest("https://opentdb.com/api.php?amount=1&category=15&difficulty=medium&type=multiple"));
+        if (completed)
+        {
+            return puzzle;
+        }
+        return null;
     }
 }

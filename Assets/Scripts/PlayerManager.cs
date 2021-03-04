@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
 using DG.Tweening;
 using UnityEngine.UI;
 
@@ -55,22 +54,17 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             toggle = !toggle;
-            FirstPersonController fps = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
             if (toggle)
             {
                 //slide hud up and down
                 HUD.DOAnchorPos(Vector2.zero, 0.25f);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                fps.enabled = false;
+                GameManager.Instance.ToggleInterface();
             }
             else
             {
                 //slide hud up and down
                 HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                fps.enabled = true;
+                GameManager.Instance.ToggleInterface();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     Dictionary<string, Pickup> worldItems = new Dictionary<string, Pickup>();//All the items in the world
     List<Door> doors = new List<Door>();
+    private bool toggle;
 
     private void Awake()
     {
@@ -50,5 +52,23 @@ public class GameManager : MonoBehaviour
     public void DropItem(string name, Vector3 position)
     {
         worldItems[name].Respawn(position);
+    }
+
+    public void ToggleInterface()
+    {
+        toggle = !toggle;
+        FirstPersonController fps = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+        if (toggle)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            fps.enabled = false;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            fps.enabled = true;
+        }
     }
 }

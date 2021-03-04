@@ -83,4 +83,9 @@ public class PuzzleItem : Item
             Debug.Log(i);
         }
     }
+
+    public List<string> GetAnswersList()
+    {
+        return answers;
+    }
 }

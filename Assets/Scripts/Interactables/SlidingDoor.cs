@@ -22,7 +22,6 @@ public class SlidingDoor : Door
     }
     public void ResetDoor()
     {
-        print("Close door!");
         open = false;
     }
 }
