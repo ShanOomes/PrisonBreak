@@ -26,7 +26,6 @@ public class APIConnection : MonoBehaviour
 {
     public GameObject cube;
     private PuzzleItem puzzle;
-    private List<string> answers = new List<string>();
     IEnumerator GetRequest(string url)
     {
         using(UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -64,6 +63,7 @@ public class APIConnection : MonoBehaviour
                     puzzle.GetList().Shuffle();
                     print(puzzle.GetQuestion());
                     puzzle.DebugAnswersList();
+                    print("Correct answer: " + puzzle.GetCorrectAnswer());
                     break;
             }
         }
