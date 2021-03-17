@@ -11,15 +11,14 @@ public class TerrainManager : TerrainConfig
 
     protected override void UpdateTerrainData(float[,] data)
     {
-        //Terrain t = Terrain.activeTerrain;
         t.terrainData.heightmapResolution = size.x;
         t.terrainData.SetHeights(0, 0, data);
-        UpdateTerrainData(data);
+        UpdateTerrainTexture(data);
     }
 
     protected void UpdateTerrainTexture(float[,] data)
     {
-        t.terrainData.heightmapResolution = size.x;
+        t.terrainData.alphamapResolution = size.x;
         t.terrainData.SetAlphamaps(0, 0, ProceduralUtils.GenerateTextureData(data, layers.ToArray()));
     }
 }
