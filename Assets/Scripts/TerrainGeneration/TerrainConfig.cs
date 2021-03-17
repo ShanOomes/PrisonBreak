@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TerrainConfig : MonoBehaviour
 {
-    public bool AutoUpdate = true;
+    public bool AutoUpdate = false;
     public Vector2Int size = new Vector2Int(512, 512);
 
     public float scale = 5f;

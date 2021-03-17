@@ -1,26 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class HingeDoor : Door
 {
-    private Rigidbody rb;
-
-    void Start()
-    {
-        rb = gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-    }
 
     void Update()
     {
         if (open)
         {
-            rb.isKinematic = false;
+            gameObject.transform.DOLocalRotate(new Vector3(-90, 0, 0), 3.0f);
         }
         else
         {
-            rb.isKinematic = true;
+            gameObject.transform.DOLocalRotate(new Vector3(-90, 0, 90), 3.0f);
         }
     }
 }
