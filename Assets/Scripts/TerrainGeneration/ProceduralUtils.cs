@@ -163,4 +163,30 @@ public static class ProceduralUtils
 
         return result;
     }
+
+    [Serializable]
+    public struct ThreeLayerData
+    {
+        public string name;
+        public int index;
+        public float minHeight;
+        public float maxHeight;
+        public float density;
+
+        public ThreeLayerData(string name, int index, float minHeight, float maxHeight, float Density)
+        {
+            this.name = name;
+            this.index = index;
+            this.minHeight = minHeight;
+            this.maxHeight = maxHeight;
+            this.density = Density;
+        }
+
+        public bool GiveThree(float height)
+        {
+            return height < maxHeight && height > minHeight && UnityEngine.Random.value < density;
+        }
+    }
+
+
 }
