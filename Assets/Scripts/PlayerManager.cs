@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class PlayerManager : MonoBehaviour
     public UIInventory inventoryUI;
     public RectTransform HUD;
     private bool toggle;
-    public Text currentWeight;
+    public TextMeshProUGUI currentWeight;
+    public bool isTyping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,34 +39,37 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if(isTyping == false)
         {
-            RaycastHit hit;
-
-            if(Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 2))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                IInteractable i = hit.collider.gameObject.GetComponent<IInteractable>();
-                if (i != null)
+                RaycastHit hit;
+
+                if (Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 2))
                 {
-                    i.Action(this);
+                    IInteractable i = hit.collider.gameObject.GetComponent<IInteractable>();
+                    if (i != null)
+                    {
+                        i.Action(this);
+                    }
                 }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            toggle = !toggle;
-            if (toggle)
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                //slide hud up and down
-                HUD.DOAnchorPos(Vector2.zero, 0.25f);
-                GameManager.Instance.ToggleInterface();
-            }
-            else
-            {
-                //slide hud up and down
-                HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
-                GameManager.Instance.ToggleInterface();
+                toggle = !toggle;
+                if (toggle)
+                {
+                    //slide hud up and down
+                    HUD.DOAnchorPos(Vector2.zero, 0.25f);
+                    GameManager.Instance.ToggleInterface();
+                }
+                else
+                {
+                    //slide hud up and down
+                    HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
+                    GameManager.Instance.ToggleInterface();
+                }
             }
         }
     }

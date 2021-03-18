@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIInventory : MonoBehaviour
 {
     public List<UIItem> uIItems = new List<UIItem>();
+    public static UIInventory Instance;
     public GameObject slotPrefab;
     public Transform slotPanel;
 
@@ -20,7 +21,15 @@ public class UIInventory : MonoBehaviour
             GameObject instance = Instantiate(slotPrefab, slotPanel);
             UIItem uIItem = instance.GetComponentInChildren<UIItem>();
             uIItems.Add(uIItem);
-            uIItem.manager = this;
+        }
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -40,6 +49,7 @@ public class UIInventory : MonoBehaviour
     }
     public void DropItem(string name)
     {
+        print(name);
         player.DropItem(name);
     }
 }

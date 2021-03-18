@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PuzzleInterface : MonoBehaviour, IInteractable
 {
@@ -10,14 +11,18 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
 
     public GameObject canvas;
 
-    public Text title;
-    public Text question;
-    public Text answers;
+    public TextMeshProUGUI title;
+    public TextMeshProUGUI question;
+    public TextMeshProUGUI answers;
+    public TMP_InputField userInput;
+    private PuzzleItem trivia;
+    private PlayerManager fps;
 
     // Start is called before the first frame update
     void Start()
     {
         gameObject.tag = "Interactable";
+        fps = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
     }
 
     public void Action(PlayerManager player)
@@ -25,7 +30,8 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
         toggle = !toggle;
         if (toggle)
         {
-            PuzzleItem trivia = APIManager.Instance.GetTrivia();
+
+            trivia = APIManager.Instance.GetTrivia();
             if (trivia != null)
             {
                 string temp;
@@ -46,6 +52,28 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
         {
             canvas.SetActive(false);
             GameManager.Instance.ToggleInterface();
+
         }
+    }
+
+    public void SubmitAnswer(TMP_InputField userInput)
+    {
+        if(userInput.text != null)
+        {
+            if (userInput.text == trivia.GetCorrectAnswer())
+            {
+                Solved = true;
+            }
+        }
+    }
+
+    public void isTyping()
+    {
+        fps.isTyping = true;
+    }
+
+    public void stoppedTyping()
+    {
+        fps.isTyping = false;
     }
 }

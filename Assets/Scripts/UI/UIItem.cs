@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Image = UnityEngine.UI.Image;
 
 public class UIItem : MonoBehaviour
 {
     public Item item;
-    private Text itemText;
-    public UIInventory manager;
+    private TextMeshProUGUI itemText;
     public Image obj;
     // Start is called before the first frame update
     private void Awake()
     {
-        itemText = GetComponent<Text>();
+        itemText = GetComponent<TextMeshProUGUI>();
         UpdateItem(null);
     }
 
@@ -37,7 +37,7 @@ public class UIItem : MonoBehaviour
     {
         if(item != null)
         {
-            manager.DropItem(item.Name);
+            UIInventory.Instance.DropItem(item.Name);
         }
         else
         {
