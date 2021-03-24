@@ -26,7 +26,6 @@ public class TerrainConfig : MonoBehaviour
     private float[,] GenerateTerrainData()
     {
         return ProceduralUtils.GenerateTerrainData(size.x, size.y, scale / 1000f, baseAmplitude, octaves, lacunarity, persistence, offset);
-
     }
 
     protected virtual void UpdateTerrainData(float[,] data)

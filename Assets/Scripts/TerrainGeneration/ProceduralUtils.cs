@@ -188,5 +188,46 @@ public static class ProceduralUtils
         }
     }
 
+    [Serializable]
+    public struct RaftLayerData
+    {
+        public string name;
+        public int index;
+        public float minHeight;
+        public float maxHeight;
+        public float amount;
+        public GameObject raftPart;
 
+        public RaftLayerData(string name, int index, float minHeight, float maxHeight, float amount, GameObject raftPart)
+        {
+            this.name = name;
+            this.index = index;
+            this.minHeight = minHeight;
+            this.maxHeight = maxHeight;
+            this.amount = amount;
+            this.raftPart = raftPart;
+        }
+        public bool PlaceOnLandmass(float height)
+        {
+            return height < maxHeight && height > minHeight;
+        }
+    }
+
+    public static Vector2Int[] GetLandmassPoints(float[,] data, float waterlvl)
+    {
+        List<Vector2Int> landmass = new List<Vector2Int>();
+        Debug.Log(waterlvl);
+        for (int y = 0; y < data.GetLength(1); y++)
+        {
+            for (int x = 0; x < data.GetLength(0); x++)
+            {
+                float heightValue = data[x, y];
+                if(heightValue > waterlvl)
+                {
+                    landmass.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+        return landmass.ToArray();
+    }
 }

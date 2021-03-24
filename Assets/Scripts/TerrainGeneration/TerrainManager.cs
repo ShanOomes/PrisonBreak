@@ -5,7 +5,7 @@ using UnityEngine;
 public class TerrainManager : TerrainConfig
 {
     public Terrain t;
-
+    public Transform water;
     [Header("Terrain Texture Settings")]
     public List<ProceduralUtils.LayerData> layers;
 
@@ -15,12 +15,21 @@ public class TerrainManager : TerrainConfig
     public float treeScale;
     public List<ProceduralUtils.ThreeLayerData> treeLayers;
 
+    [Header("Raft Generation Settings")]
+    public bool generateRaftParts = true;
+
+    public List<ProceduralUtils.RaftLayerData> raftLayers;
+    private Vector2Int[] landmassCache;
+
+
     protected override void UpdateTerrainData(float[,] data)
     {
         t.terrainData.heightmapResolution = size.x;
         t.terrainData.SetHeights(0, 0, data);
+        landmassCache = ProceduralUtils.GetLandmassPoints(data, (water.position.y - t.GetPosition().y) / t.terrainData.size.y);
         UpdateTerrainTexture(data);
         CreateTrees();
+        PlaceRaftParts(100);
     }
 
     protected void UpdateTerrainTexture(float[,] data)
@@ -59,6 +68,23 @@ public class TerrainManager : TerrainConfig
 
             t.terrainData.SetTreeInstances(trees.ToArray(), true);
             t.Flush();
+        }
+    }
+
+    protected void PlaceRaftParts(int amount)
+    {
+        if (generateRaftParts)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Vector2Int p = landmassCache[(int)Random.Range(0, landmassCache.Length)];
+                float x = (float)p.x / size.x * t.terrainData.size.x;
+                float z = (float)p.y / size.y * t.terrainData.size.z;
+                Vector3 pw = new Vector3(z, 0, x);
+                pw.y = t.SampleHeight(pw);
+                GameObject raft = Instantiate(raftLayers[0].raftPart.gameObject, pw, Quaternion.identity) as GameObject;
+            }
+
         }
     }
 }

@@ -71,4 +71,12 @@ public class GameManager : MonoBehaviour
             fps.enabled = true;
         }
     }
+
+    public void Start()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            print("je moeder");
+        }
+    }
 }
