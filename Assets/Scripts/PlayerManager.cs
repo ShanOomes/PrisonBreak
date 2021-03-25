@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public class PlayerManager : MonoBehaviour
     private bool toggle;
     public TextMeshProUGUI currentWeight;
     public bool isTyping = false;
-
+    private FirstPersonController fps;
+    private Coroutine teleporting;
     // Start is called before the first frame update
     void Start()
     {
         inventory = new Inventory(initialMaxWeight);
+        fps = GetComponent<FirstPersonController>();
     }
 
     public bool AddItem(Item i)
@@ -86,5 +89,30 @@ public class PlayerManager : MonoBehaviour
             GameManager.Instance.DropItem(name, transform.position + transform.forward);
             currentWeight.text = inventory.GetCurrentWeight().ToString();
         }
+        else
+        {
+            print("Problem!");
+        }
+    }
+
+    private IEnumerator SetPos(Vector3 position)
+    {
+        fps.enabled = false;
+
+        fps.transform.position = position;
+        yield return new WaitForSeconds(0.1f);
+        fps.enabled = true;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        
+        if (teleporting == null)
+        {
+            teleporting = StartCoroutine(SetPos(position));
+            
+        }
+        
+        
     }
 }

@@ -216,7 +216,6 @@ public static class ProceduralUtils
     public static Vector2Int[] GetLandmassPoints(float[,] data, float waterlvl)
     {
         List<Vector2Int> landmass = new List<Vector2Int>();
-        Debug.Log(waterlvl);
         for (int y = 0; y < data.GetLength(1); y++)
         {
             for (int x = 0; x < data.GetLength(0); x++)

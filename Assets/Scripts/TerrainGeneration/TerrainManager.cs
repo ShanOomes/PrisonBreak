@@ -6,6 +6,7 @@ public class TerrainManager : TerrainConfig
 {
     public Terrain t;
     public Transform water;
+    public PlayerManager player;
     [Header("Terrain Texture Settings")]
     public List<ProceduralUtils.LayerData> layers;
 
@@ -21,6 +22,18 @@ public class TerrainManager : TerrainConfig
     public List<ProceduralUtils.RaftLayerData> raftLayers;
     private Vector2Int[] landmassCache;
 
+    public static TerrainManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     protected override void UpdateTerrainData(float[,] data)
     {
@@ -29,7 +42,7 @@ public class TerrainManager : TerrainConfig
         landmassCache = ProceduralUtils.GetLandmassPoints(data, (water.position.y - t.GetPosition().y) / t.terrainData.size.y);
         UpdateTerrainTexture(data);
         CreateTrees();
-        PlaceRaftParts(100);
+        PlaceRaftParts(10);
     }
 
     protected void UpdateTerrainTexture(float[,] data)
@@ -70,6 +83,15 @@ public class TerrainManager : TerrainConfig
             t.Flush();
         }
     }
+    protected Vector3 Dostuff()
+    {
+        Vector2Int p = landmassCache[(int)Random.Range(0, landmassCache.Length)];
+        float x = (float)p.x / size.x * t.terrainData.size.x;
+        float z = (float)p.y / size.y * t.terrainData.size.z;
+        Vector3 pw = new Vector3(z, 0, x);
+        pw.y = t.SampleHeight(pw);
+        return pw;
+    }
 
     protected void PlaceRaftParts(int amount)
     {
@@ -77,14 +99,15 @@ public class TerrainManager : TerrainConfig
         {
             for (int i = 0; i < amount; i++)
             {
-                Vector2Int p = landmassCache[(int)Random.Range(0, landmassCache.Length)];
-                float x = (float)p.x / size.x * t.terrainData.size.x;
-                float z = (float)p.y / size.y * t.terrainData.size.z;
-                Vector3 pw = new Vector3(z, 0, x);
-                pw.y = t.SampleHeight(pw);
-                GameObject raft = Instantiate(raftLayers[0].raftPart.gameObject, pw, Quaternion.identity) as GameObject;
+                GameObject raft = Instantiate(raftLayers[0].raftPart.gameObject, Dostuff(), Quaternion.identity) as GameObject;
             }
-
         }
+    }
+
+    public void PlacePlayer()
+    {
+
+        Vector3 tmp = Dostuff();
+        player.SetPosition(tmp);
     }
 }

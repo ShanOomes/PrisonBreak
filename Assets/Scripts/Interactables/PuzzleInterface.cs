@@ -17,6 +17,7 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
     public TMP_InputField userInput;
     private PuzzleItem trivia;
     private PlayerManager fps;
+    public HingeDoor door;
 
     // Start is called before the first frame update
     void Start()
@@ -56,13 +57,14 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
         }
     }
 
-    public void SubmitAnswer(TMP_InputField userInput)
+    public void SubmitAnswer()
     {
         if(userInput.text != null)
         {
             if (userInput.text == trivia.GetCorrectAnswer())
             {
                 Solved = true;
+                door.open = true;
             }
         }
     }
