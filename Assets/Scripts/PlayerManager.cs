@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     public RectTransform HUD;
     private bool toggle;
     public TextMeshProUGUI currentWeight;
+    public TextMeshProUGUI statusText;
     public bool isTyping = false;
     private FirstPersonController fps;
     private Coroutine teleporting;
@@ -30,6 +31,7 @@ public class PlayerManager : MonoBehaviour
         if (inventory.CheckWeight(i))
         {
             inventoryUI.AddNewItem(i);
+            statusText.text = i.Name + " Added to inventory";
         }
         currentWeight.text = inventory.GetCurrentWeight().ToString();
         return inventory.AddItem(i);
@@ -54,6 +56,7 @@ public class PlayerManager : MonoBehaviour
                     if (i != null)
                     {
                         i.Action(this);
+                        statusText.text = i.ToString() + " interaction";
                     }
                 }
             }
@@ -74,11 +77,6 @@ public class PlayerManager : MonoBehaviour
                     GameManager.Instance.ToggleInterface();
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                inventory.HasRaftParts();
-            }
         }
     }
 
@@ -93,6 +91,7 @@ public class PlayerManager : MonoBehaviour
             //sets item back into the world, respawns item
             GameManager.Instance.DropItem(name, transform.position + transform.forward);
             currentWeight.text = inventory.GetCurrentWeight().ToString();
+            statusText.text = i.Name + " item dropped";
         }
         else
         {
@@ -120,11 +119,16 @@ public class PlayerManager : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        
+        if(other.tag == "Dock")
+        {
+            if (inventory.HasRaftParts())
+            {
+                statusText.text = "Raft completed";
+            }
+            else
+            {
+                statusText.text = "Not enough raftparts in your inventory";
+            }
+        }
     }
 }

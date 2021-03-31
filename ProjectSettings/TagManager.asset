@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickup
   - Interactable
+  - Dock
   layers:
   - Default
   - TransparentFX

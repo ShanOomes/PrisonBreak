@@ -24,6 +24,7 @@ public class TerrainManager : TerrainConfig
     private Vector2Int[] landmassCache;
     public int amount = 0;
     public GameObject raftPart;
+    public GameObject parent;
 
     public static TerrainManager Instance;
     private void Awake()
@@ -104,6 +105,7 @@ public class TerrainManager : TerrainConfig
             {
                 GameObject raft = Instantiate(raftPart, Dostuff(), Quaternion.identity);
                 raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
+                raft.transform.SetParent(parent.transform);
             }
         }
     }
