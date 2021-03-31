@@ -115,12 +115,10 @@ public class Inventory
 
         if(itteration >= 4)
         {
-            Debug.Log(itteration + "You have all the raftparts");
             return true;
         }
         else
         {
-            Debug.Log(itteration + "Not enough raftparts");
             return false;
         }
     }

@@ -130,11 +130,17 @@ public class PlayerManager : MonoBehaviour
             if (inventory.HasRaftParts())
             {
                 statusText.text = "Raft completed";
+                GameManager.Instance.SpawnEscapeBoat();
             }
             else
             {
                 statusText.text = "Not enough raftparts in your inventory";
             }
+        }
+
+        if (other.tag == "Boat")
+        {
+            Fade.Instance.FadeIn();
         }
     }
 }

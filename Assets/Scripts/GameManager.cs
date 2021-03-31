@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     Dictionary<string, Pickup> worldItems = new Dictionary<string, Pickup>();//All the items in the world
     List<Door> doors = new List<Door>();
     private bool toggle;
+    public GameObject boat;
 
     private void Awake()
     {
@@ -70,5 +71,10 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             fps.enabled = true;
         }
+    }
+
+    public void SpawnEscapeBoat()
+    {
+        Instantiate(boat, boat.transform.position, Quaternion.identity);
     }
 }

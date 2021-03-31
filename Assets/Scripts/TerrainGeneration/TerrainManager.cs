@@ -18,14 +18,11 @@ public class TerrainManager : TerrainConfig
     public List<ProceduralUtils.ThreeLayerData> treeLayers;
 
     [Header("Raft Generation Settings")]
-    public bool generateRaftParts = true;
 
     public List<ProceduralUtils.RaftLayerData> raftLayers;
     private Vector2Int[] landmassCache;
-    public int amount = 0;
     public GameObject raftPart;
-    public GameObject parent;
-
+    private GameObject obj;
     public static TerrainManager Instance;
     private void Awake()
     {
@@ -46,7 +43,6 @@ public class TerrainManager : TerrainConfig
         landmassCache = ProceduralUtils.GetLandmassPoints(data, (water.position.y - t.GetPosition().y) / t.terrainData.size.y);
         UpdateTerrainTexture(data);
         CreateTrees();
-        PlaceRaftParts(amount);
     }
 
     protected void UpdateTerrainTexture(float[,] data)
@@ -97,19 +93,22 @@ public class TerrainManager : TerrainConfig
         return pw;
     }
 
-    protected void PlaceRaftParts(int amount)
+    public  void PlaceRaftParts(int amount)
     {
-        if (generateRaftParts)
+        obj = new GameObject("Parent-Obj");
+        for (int i = 0; i < amount; i++)
         {
-            for (int i = 0; i < amount; i++)
-            {
-                GameObject raft = Instantiate(raftPart, GetRandomPosOnLandmass(), Quaternion.identity);
-                raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
-                raft.transform.SetParent(parent.transform);
-            }
+            GameObject raft = Instantiate(raftPart, GetRandomPosOnLandmass(), Quaternion.identity);
+            raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
+
+            raft.transform.SetParent(obj.transform);
         }
     }
 
+    public void clearRaftParts()
+    {
+        DestroyImmediate(obj);
+    }
     public void PlacePlayer()
     {
         Vector3 tmp = GetRandomPosOnLandmass();
