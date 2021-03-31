@@ -113,7 +113,7 @@ public class Inventory
             }
         }
 
-        if(itteration >= 4)
+        if(itteration >= 1)
         {
             return true;
         }

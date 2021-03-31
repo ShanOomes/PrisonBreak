@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     private bool toggle;
     public TextMeshProUGUI currentWeight;
     public TextMeshProUGUI statusText;
+    public GameObject endScreen;
     public bool isTyping = false;
     private FirstPersonController fps;
     private Coroutine teleporting;
@@ -67,23 +68,23 @@ public class PlayerManager : MonoBehaviour
                 if (toggle)
                 {
                     //slide hud up and down
+                    timer();
                     HUD.DOAnchorPos(Vector2.zero, 0.25f);
-                    StartCoroutine(timer());
+                    //StartCoroutine(timer());
                     GameManager.Instance.ToggleInterface();
                 }
                 else
                 {
                     //slide hud up and down
-                    HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
-                    StartCoroutine(timer());
+                    HUD.DOAnchorPos(new Vector2(0, -381), 0.25f).OnComplete(timer);
+                    //StartCoroutine(timer());
                     GameManager.Instance.ToggleInterface();
                 }
             }
         }
     }
-    private IEnumerator timer()
+    private void timer()
     {
-        yield return new WaitForSeconds(0.25f);
         HUD.gameObject.SetActive(toggle);
     }
     public void DropItem(string name)
@@ -140,6 +141,7 @@ public class PlayerManager : MonoBehaviour
 
         if (other.tag == "Boat")
         {
+            endScreen.SetActive(true);
             Fade.Instance.FadeIn();
         }
     }
