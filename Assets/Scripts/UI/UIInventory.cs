@@ -49,7 +49,7 @@ public class UIInventory : MonoBehaviour
     }
     public void DropItem(string name)
     {
-        print(name);
+        //print(name);
         player.DropItem(name);
     }
 }

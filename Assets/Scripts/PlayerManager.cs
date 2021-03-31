@@ -68,18 +68,24 @@ public class PlayerManager : MonoBehaviour
                 {
                     //slide hud up and down
                     HUD.DOAnchorPos(Vector2.zero, 0.25f);
+                    StartCoroutine(timer());
                     GameManager.Instance.ToggleInterface();
                 }
                 else
                 {
                     //slide hud up and down
                     HUD.DOAnchorPos(new Vector2(0, -381), 0.25f);
+                    StartCoroutine(timer());
                     GameManager.Instance.ToggleInterface();
                 }
             }
         }
     }
-
+    private IEnumerator timer()
+    {
+        yield return new WaitForSeconds(0.25f);
+        HUD.gameObject.SetActive(toggle);
+    }
     public void DropItem(string name)
     {
         Item i = inventory.GetItemWithName(name);

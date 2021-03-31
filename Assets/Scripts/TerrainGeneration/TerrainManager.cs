@@ -87,7 +87,7 @@ public class TerrainManager : TerrainConfig
             t.Flush();
         }
     }
-    protected Vector3 Dostuff()
+    protected Vector3 GetRandomPosOnLandmass()
     {
         Vector2Int p = landmassCache[(int)Random.Range(0, landmassCache.Length)];
         float x = (float)p.x / size.x * t.terrainData.size.x;
@@ -103,7 +103,7 @@ public class TerrainManager : TerrainConfig
         {
             for (int i = 0; i < amount; i++)
             {
-                GameObject raft = Instantiate(raftPart, Dostuff(), Quaternion.identity);
+                GameObject raft = Instantiate(raftPart, GetRandomPosOnLandmass(), Quaternion.identity);
                 raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
                 raft.transform.SetParent(parent.transform);
             }
@@ -112,7 +112,7 @@ public class TerrainManager : TerrainConfig
 
     public void PlacePlayer()
     {
-        Vector3 tmp = Dostuff();
+        Vector3 tmp = GetRandomPosOnLandmass();
         player.SetPosition(tmp);
     }
 }
