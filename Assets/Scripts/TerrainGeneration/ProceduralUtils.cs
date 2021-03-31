@@ -195,17 +195,13 @@ public static class ProceduralUtils
         public int index;
         public float minHeight;
         public float maxHeight;
-        public float amount;
-        public GameObject raftPart;
 
-        public RaftLayerData(string name, int index, float minHeight, float maxHeight, float amount, GameObject raftPart)
+        public RaftLayerData(string name, int index, float minHeight, float maxHeight)
         {
             this.name = name;
             this.index = index;
             this.minHeight = minHeight;
             this.maxHeight = maxHeight;
-            this.amount = amount;
-            this.raftPart = raftPart;
         }
         public bool PlaceOnLandmass(float height)
         {

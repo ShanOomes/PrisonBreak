@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class TerrainManager : TerrainConfig
 {
@@ -21,6 +22,8 @@ public class TerrainManager : TerrainConfig
 
     public List<ProceduralUtils.RaftLayerData> raftLayers;
     private Vector2Int[] landmassCache;
+    public int amount = 0;
+    public GameObject raftPart;
 
     public static TerrainManager Instance;
     private void Awake()
@@ -42,7 +45,7 @@ public class TerrainManager : TerrainConfig
         landmassCache = ProceduralUtils.GetLandmassPoints(data, (water.position.y - t.GetPosition().y) / t.terrainData.size.y);
         UpdateTerrainTexture(data);
         CreateTrees();
-        PlaceRaftParts(10);
+        PlaceRaftParts(amount);
     }
 
     protected void UpdateTerrainTexture(float[,] data)
@@ -99,14 +102,14 @@ public class TerrainManager : TerrainConfig
         {
             for (int i = 0; i < amount; i++)
             {
-                GameObject raft = Instantiate(raftLayers[0].raftPart.gameObject, Dostuff(), Quaternion.identity) as GameObject;
+                GameObject raft = Instantiate(raftPart, Dostuff(), Quaternion.identity);
+                raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
             }
         }
     }
 
     public void PlacePlayer()
     {
-
         Vector3 tmp = Dostuff();
         player.SetPosition(tmp);
     }

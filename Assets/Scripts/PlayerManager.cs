@@ -74,6 +74,11 @@ public class PlayerManager : MonoBehaviour
                     GameManager.Instance.ToggleInterface();
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                inventory.HasRaftParts();
+            }
         }
     }
 
@@ -106,13 +111,20 @@ public class PlayerManager : MonoBehaviour
 
     public void SetPosition(Vector3 position)
     {
-        
         if (teleporting == null)
         {
             teleporting = StartCoroutine(SetPos(position));
             
         }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
         
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
         
     }
 }

@@ -102,6 +102,29 @@ public class Inventory
         return currentWeight;
     }
 
+    public bool HasRaftParts()
+    {
+        int itteration = 0;
+        foreach (var item in items)
+        {
+            if(item.Name == "RaftPart")
+            {
+                itteration++;
+            }
+        }
+
+        if(itteration >= 4)
+        {
+            Debug.Log(itteration + "You have all the raftparts");
+            return true;
+        }
+        else
+        {
+            Debug.Log(itteration + "Not enough raftparts");
+            return false;
+        }
+    }
+
     public void DebugInventory()
     {
         Debug.Log("Inventory has " + Count() + " items");
