@@ -24,6 +24,7 @@ public class PuzzleInterface : MonoBehaviour, IInteractable
     {
         gameObject.tag = "Interactable";
         fps = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+        trivia = APIManager.Instance.GetTrivia();
     }
 
     public void Action(PlayerManager player)
