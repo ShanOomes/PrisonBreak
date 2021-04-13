@@ -14,7 +14,7 @@ public class CustomInspector : Editor
 
         if(GUILayout.Button("Generate RaftParts"))
         {
-            manager.PlaceRaftParts(10);
+            manager.PlaceRaftParts(100);
         }
 
         if (GUILayout.Button("Delete RaftParts"))

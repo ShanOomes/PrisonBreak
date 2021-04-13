@@ -107,7 +107,7 @@ public class Inventory
         int itteration = 0;
         foreach (var item in items)
         {
-            if(item.Name == "RaftPart")
+            if (item is RaftItem)
             {
                 itteration++;
             }

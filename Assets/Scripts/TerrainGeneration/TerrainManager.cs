@@ -99,7 +99,7 @@ public class TerrainManager : TerrainConfig
         for (int i = 0; i < amount; i++)
         {
             GameObject raft = Instantiate(raftPart, GetRandomPosOnLandmass(), Quaternion.identity);
-            raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart", 10f);
+            raft.GetComponent<RaftPart>().SetVariables(i, "RaftPart - " + i, 10f);
 
             raft.transform.SetParent(obj.transform);
         }
